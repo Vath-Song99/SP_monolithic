@@ -1,10 +1,9 @@
-import { StatusCode } from "@scm/utils/consts";
+import { StatusCode } from "@SP/utils/consts";
 import NotFoundError from "../not-found-error";
 
-
-describe('NotFoundError', () => {
-  it('should instantiate correctly with default status code', () => {
-    const errorMessage = 'Not found error';
+describe("NotFoundError", () => {
+  it("should instantiate correctly with default status code", () => {
+    const errorMessage = "Not found error";
 
     const error = new NotFoundError(errorMessage);
 
@@ -13,8 +12,8 @@ describe('NotFoundError', () => {
     expect(error.getStatusCode()).toBe(StatusCode.NotFound);
   });
 
-  it('should instantiate correctly with custom status code', () => {
-    const errorMessage = 'Not found error';
+  it("should instantiate correctly with custom status code", () => {
+    const errorMessage = "Not found error";
     const customStatusCode = 404;
 
     const error = new NotFoundError(errorMessage, customStatusCode);
@@ -24,8 +23,8 @@ describe('NotFoundError', () => {
     expect(error.getStatusCode()).toBe(customStatusCode);
   });
 
-  it('should set the correct prototype', () => {
-    const errorMessage = 'Not found error';
+  it("should set the correct prototype", () => {
+    const errorMessage = "Not found error";
 
     const error = new NotFoundError(errorMessage);
 

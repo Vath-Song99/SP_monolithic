@@ -1,5 +1,5 @@
 import compression from "compression";
-import express, { Application } from "express";
+import express, { Application, NextFunction, Request, Response } from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -7,6 +7,11 @@ import cors from "cors";
 import { getConfig } from "./utils/cofig";
 import xss from "xss";
 import { errorHandler } from "./middlewares/error-handler";
+import { RegisterRoutes } from "./routes/v1/routes";
+import { StatusCode } from "./utils/consts";
+import { logger } from "./utils/logger";
+import swaggerUi from "swagger-ui-express";
+import path from "path";
 
 const app: Application = express();
 const config = getConfig();
@@ -79,6 +84,32 @@ app.use((req, _res, next) => {
     }
   }
   next();
+});
+
+//API Routes
+RegisterRoutes(app);
+// Serve the Swagger UI
+app.use(
+  "/swagger",
+  swaggerUi.serve,
+  swaggerUi.setup(undefined, {
+    swaggerOptions: {
+      url: "/swagger.json", // Point to the generated Swagger JSON file
+    },
+  })
+);
+
+// Serve the generated Swagger JSON file
+app.get("/swagger.json", (_req, res) => {
+  res.sendFile(path.join(__dirname, "./swagger-dist/swagger.json"));
+});
+// Catching invalid
+app.use("*", (req: Request, res: Response, _next: NextFunction) => {
+  const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+  logger.error(`${fullUrl} endpoint does not exist`);
+  res
+    .status(StatusCode.NotFound)
+    .json({ message: "The endpoint called does not exist." });
 });
 
 //error handler

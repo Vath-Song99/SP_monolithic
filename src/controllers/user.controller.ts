@@ -1,21 +1,22 @@
 import { Routes } from "@SP/routes";
 import { UserService } from "@SP/services/user.service";
-import { Route, Post, Body, Get, Path } from "tsoa";
 import { IUserController } from "./@types/user.controller.type";
+import { IUser, IUserResponse } from "@SP/@types/user.type";
+import { Body, Get, Path, Post, Route, SuccessResponse } from "tsoa";
+import { StatusCode } from "@SP/utils/consts";
 
-@Route(Routes.BASE)
+@Route("/api/v1")
 export class UserController implements IUserController {
   private readonly userService: UserService;
 
-  private constructor() {
+  constructor() {
     this.userService = UserService.getInstance();
   }
 
   @Post(Routes.CREATE_USER)
-  public async createUser(
-    @Body() user: { username: string; email: string; age: number }
-  ): Promise<{
-    data: { id: string; username: string; email: string; age: number };
+  @SuccessResponse(StatusCode.Created, "Created")
+  public async createUser(@Body() user: IUser): Promise<{
+    data: IUserResponse;
   }> {
     try {
       const newUser = await this.userService.createUser(user);
@@ -27,7 +28,7 @@ export class UserController implements IUserController {
 
   @Get(Routes.RETRIEVE_USER)
   public async getUser(@Path() id: string): Promise<{
-    data: { id: string; username: string; email: string; age: number };
+    data: IUserResponse;
   }> {
     try {
       const user = await this.userService.getUser(id);

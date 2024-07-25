@@ -34,8 +34,9 @@
     "morgan": "^1.10.0",
     "pg": "^8.12.0",
     "swagger-ui-express": "^5.0.0",
-    "tsoa": "^6.2.1",
+    "tsoa": "^6.4.0",
     "typeorm": "^0.3.20",
+    "typescript-transform-paths": "^3.4.7",
     "winston": "^3.13.0",
     "xss": "^1.0.15",
     "zod": "^3.22.4"

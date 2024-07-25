@@ -1,10 +1,9 @@
-import { StatusCode } from "@scm/utils/consts";
+import { StatusCode } from "@SP/utils/consts";
 import DuplicateError from "../duplicate-error";
 
-
-describe('DuplicateError', () => {
-  it('should instantiate correctly with default status code', () => {
-    const errorMessage = 'Duplicate error';
+describe("DuplicateError", () => {
+  it("should instantiate correctly with default status code", () => {
+    const errorMessage = "Duplicate error";
 
     const error = new DuplicateError(errorMessage);
 
@@ -13,8 +12,8 @@ describe('DuplicateError', () => {
     expect(error.getStatusCode()).toBe(StatusCode.Conflict);
   });
 
-  it('should set the correct prototype', () => {
-    const errorMessage = 'Duplicate error';
+  it("should set the correct prototype", () => {
+    const errorMessage = "Duplicate error";
 
     const error = new DuplicateError(errorMessage);
 

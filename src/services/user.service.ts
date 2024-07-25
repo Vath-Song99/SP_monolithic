@@ -39,7 +39,7 @@ export class UserService implements IUserService {
     }
   }
 
-  public async getUser(id?: string): Promise<IUserResponse> {
+  public async getUser(id: string): Promise<IUserResponse> {
     try {
       if (!id) {
         throw new NotFoundError(`Invalid ID!`, StatusCode.BadRequest);

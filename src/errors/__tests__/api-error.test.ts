@@ -1,9 +1,9 @@
-import { StatusCode } from '@scm/utils/consts';
-import { ApiError } from '../api-error';
+import { StatusCode } from "@SP/utils/consts";
+import { ApiError } from "../api-error";
 
-describe('ApiError', () => {
-  it('should instantiate correctly with default status code', () => {
-    const errorMessage = 'Test error';
+describe("ApiError", () => {
+  it("should instantiate correctly with default status code", () => {
+    const errorMessage = "Test error";
 
     const error = new ApiError(errorMessage);
 
@@ -12,8 +12,8 @@ describe('ApiError', () => {
     expect(error.getStatusCode()).toBe(StatusCode.InternalServerError);
   });
 
-  it('should instantiate correctly with custom status code', () => {
-    const errorMessage = 'Test error';
+  it("should instantiate correctly with custom status code", () => {
+    const errorMessage = "Test error";
     const statusCode = StatusCode.BadRequest;
 
     const error = new ApiError(errorMessage, statusCode);
@@ -23,8 +23,8 @@ describe('ApiError', () => {
     expect(error.getStatusCode()).toBe(statusCode);
   });
 
-  it('should set the correct prototype', () => {
-    const errorMessage = 'Test error';
+  it("should set the correct prototype", () => {
+    const errorMessage = "Test error";
 
     const error = new ApiError(errorMessage);
 
